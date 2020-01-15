@@ -181,6 +181,10 @@ type forwardedTCPPayload struct {
 
 // parseTCPAddr parses the originating address from the remote into a *net.TCPAddr.
 func parseTCPAddr(addr string, port uint32) (*net.TCPAddr, error) {
+	if addr == "localhost" {
+		addr = "127.0.0.1"
+	}
+
 	if port == 0 || port > 65535 {
 		return nil, fmt.Errorf("ssh: port number out of range: %d", port)
 	}
