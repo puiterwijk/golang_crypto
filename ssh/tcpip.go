@@ -184,6 +184,9 @@ func parseTCPAddr(addr string, port uint32) (*net.TCPAddr, error) {
 	if addr == "localhost" {
 		addr = "127.0.0.1"
 	}
+	if addr == "" && port == 0 {
+		return nil, nil
+	}
 
 	if port == 0 || port > 65535 {
 		return nil, fmt.Errorf("ssh: port number out of range: %d", port)
